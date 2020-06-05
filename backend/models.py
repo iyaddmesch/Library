@@ -31,8 +31,8 @@ class Author(models.Model):
     full_name = models.CharField(max_length=30, blank=True)
     birthday  = models.DataField(blank=True, null=True)
     gender    = models.CharField(max_length=6, choices=Gender, default="")
-    picture   = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    phone     = models.constants(max_length=10, blank = false)
+    picture   = models.ImageField(default='default_author.jpg', upload_to='profile_pics')
+    phone     = models.CharField(max_length=15, blank=False)
     email     = models.EmailField(max_length=40, blank=True)
 
     def __str__(self):
