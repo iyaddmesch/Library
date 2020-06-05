@@ -50,3 +50,6 @@ class challenge(models.Model):
     uer = models.ManyToManyField(Book , on_delete=models.CASCADE)
 
     Sessions = models.ManyToManyField(Sessions, on_delete=models.CASCADE)
+    
+    session_description = models.CharField(max_length=200 , blank = True)
+
