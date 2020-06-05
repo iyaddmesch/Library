@@ -2,7 +2,7 @@ from django.db import models
 
 from django.db import models
 
-gender = (('', '----'),
+Gender = (('', '----'),
     ('Male','Male'),
     ('Female','Female'),
     )
@@ -12,7 +12,7 @@ class Profile(models.Model):
     description = models.TextField(max_length=300,blank=True)
     birthday = models.DataField(blank=True, null=True)
     image = models.ImageField(default='default.jpg',upload_to='profile_pics')
-    gender = models.CharField(max_length=6, choices=Gender, default="")
+    Gender = models.CharField(max_length=6, choices=Gender, default="")
     phone_number = models.constants(max_length=10 , blank = false)
     e-mail = models.EmailField(max_length=40 , blank=True)
     number_of_books_read = models.IntegerField()
@@ -48,4 +48,5 @@ class challenge (models.Model):
     evaluation = models.IntegerField()
 class challenge(models.Model):
     uer = models.ManyToManyField(Book , on_delete=models.CASCADE)
+
     Sessions = models.ManyToManyField(Sessions, on_delete=models.CASCADE)
