@@ -45,7 +45,7 @@ class Profile(models.Model):
     description = models.TextField(max_length=300, blank=True)
     birthday    = models.DataField(blank=True, null=True)
     gender      = models.CharField(max_length=6, choices=Gender, default="")
-    phone       = models.constants(max_length=10, blank = false)
+    phone       = models.CharField(max_length=15, blank=False)
     email       = models.EmailField(max_length=40, blank=True)
     preferences = models.TextField(max_length=500, blank=True)
     picture     = models.ImageField(default='default_profile.jpg', upload_to='profile_pics')
