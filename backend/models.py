@@ -25,6 +25,7 @@ class Book(models.Model):
     author = models.CharField(max_length=30, blank=True)
     category =models.CharField(max_length=60), blank=True )
     avaible = models.BooleanField()
+    number_of_copies = models.IntegerField(max= 20 , min= 0)
     description = models.TextField(max_length=500 , blank=True)
     image =  models.ImageField(default='default.jpg',upload_to='book_pics')
 class Sessions(models.Model):
@@ -38,18 +39,20 @@ class Sessions(models.Model):
 class Reviews (models.Model):
     user    = models.ForeignKeyField(User,on_delete=models.CASCADE)
     book = models.ForeignKey(Book,on_delete=models.CASCADE)
+    sessions = models.ForeignKey(Sessions, on_delete = models.CASCADE)
     comment = models.TextField(max_length=600 , blank=True)
     Stars = models.IntegerField(max = 5 , min = 1)
+    
 class challenge (models.Model):
     user    = models.ForeignKeyField(User, blank = True , null=True,on_delete = models.SET_NULL , related_name = 'answered_by')
     book = models.ManyToManyField(Book)
     question = models.TextField(max_length=200, blank=True)
     answer = models.TextField(max=600 , blank=True)
     evaluation = models.IntegerField()
-class challenge(models.Model):
-    uer = models.ManyToManyField(Book , on_delete=models.CASCADE)
-
+class Author(models.Model):
+    user = models.ManyToManyField(Book , on_delete=models.CASCADE)
     Sessions = models.ManyToManyField(Sessions, on_delete=models.CASCADE)
+
     
-    session_description = models.CharField(max_length=200 , blank = True)
+
 
