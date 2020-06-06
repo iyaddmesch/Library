@@ -72,7 +72,6 @@ class Book(models.Model):
     picture     = models.ImageField(default='default_book.jpg', upload_to='book_picture')
     #relations
     authors     = models.ManyToManyField(Author, related_name='authors')
-    review      = models.ManyToManyField(Review, related_name='book_reviews')
 
     def __str__(self):
         return ", ".join([str(self.title) + " " + str(self.slug) + " (" + str(self.isbn) +") "])
@@ -83,8 +82,7 @@ class Session(models.Model):
     picture = models.ImageField(default='default_session.jpg', upload_to='book_pics')
     report  = models.TextField(max_length=500, blank=True) 
     #relations
-    authors = models.ManyToManyField(Author, related_name='books_authors')
-    reviews = models.ManyToManyField(Review, related_name='session_reviews')
+    authors = models.ManyToManyField(Author, blank=True, related_name='books_authors')
 
     def __str__(self):
         return ", ".join([str(self.id) + " " + " (" + str(self.date) +") "])
