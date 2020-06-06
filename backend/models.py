@@ -5,7 +5,7 @@ import uuid
 
 # choice fields to be later placed in a separate file
 # gender
-Gender = (('', '----'),
+gender = (('', '----'),
 ('Male', 'Male'),
 ('Female', 'Female'))
 
@@ -29,21 +29,22 @@ languages = (('', '---------'),
 class Author(models.Model):
     id        = models.CharField(editable=False, primary_key=True, max_length=35)
     full_name = models.CharField(max_length=30, blank=True)
-    birthday  = models.DateField(blank=True, null=True)
-    gender    = models.CharField(max_length=6, choices=Gender, default="")
-    picture   = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    phone     = models.IntegerField(max_length=10, blank = false)
+    birthday  = models.DataField(blank=True, null=True)
+    gender    = models.CharField(max_length=6, choices=gender, default="")
+    picture   = models.ImageField(default='default_author.jpg', upload_to='profile_pics')
+    phone     = models.CharField(max_length=15, blank=False)
     email     = models.EmailField(max_length=40, blank=True)
 
     def __str__(self):
         return str(self.full_name)
 
+
 class Profile(models.Model):
     id          = models.CharField(editable=False, primary_key=True, max_length=35)
     full_name   = models.CharField(max_length=30, blank=True)
     description = models.TextField(max_length=300, blank=True)
-    birthday    = models.DateField(blank=True, null=True)
-    gender      = models.CharField(max_length=6, choices=Gender, default="")
+    birthday    = models.DataField(blank=True, null=True)
+    gender      = models.CharField(max_length=6, choices=gender, default="")
     phone       = models.CharField(max_length=15, blank=False)
     email       = models.EmailField(max_length=40, blank=True)
     preferences = models.TextField(max_length=500, blank=True)
@@ -63,7 +64,7 @@ class Book(models.Model):
     isbn        = models.CharField(max_length=30)
     title       = models.CharField(max_length=30, blank=True)
     language    = models.CharField(max_length=80, null=True, choices=languages, default="")
-    published   = models.DateField(blank=True, null=True)
+    published   = models.DataField(blank=True, null=True)
     category    = models.CharField(max_length=60, blank=True )
     available   = models.BooleanField(default=False)
     quantity    = models.IntegerField(max=20, min=0)
@@ -71,7 +72,6 @@ class Book(models.Model):
     picture     = models.ImageField(default='default_book.jpg', upload_to='book_picture')
     #relations
     authors     = models.ManyToManyField(Author, related_name='authors')
-    review      = models.ManyToManyField(Review, related_name='book_reviews')
 
     def __str__(self):
         return ", ".join([str(self.title) + " " + str(self.slug) + " (" + str(self.isbn) +") "])
@@ -82,8 +82,7 @@ class Session(models.Model):
     picture = models.ImageField(default='default_session.jpg', upload_to='book_pics')
     report  = models.TextField(max_length=500, blank=True) 
     #relations
-    authors = models.ManyToManyField(Author, related_name='books_authors')
-    reviews = models.ManyToManyField(Review, related_name='session_reviews')
+    authors = models.ManyToManyField(Author, blank=True, related_name='books_authors')
 
     def __str__(self):
         return ", ".join([str(self.id) + " " + " (" + str(self.date) +") "])
