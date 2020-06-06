@@ -5,7 +5,7 @@ import uuid
 
 # choice fields to be later placed in a separate file
 # gender
-gender = (('', '----'),
+Gender = (('', '----'),
 ('Male', 'Male'),
 ('Female', 'Female'))
 
@@ -29,21 +29,20 @@ languages = (('', '---------'),
 class Author(models.Model):
     id        = models.CharField(editable=False, primary_key=True, max_length=35)
     full_name = models.CharField(max_length=30, blank=True)
-    birthday  = models.DataField(blank=True, null=True)
+    birthday  = models.DateField(blank=True, null=True)
     gender    = models.CharField(max_length=6, choices=Gender, default="")
     picture   = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    phone     = models.constants(max_length=10, blank = false)
+    phone     = models.IntegerField(max_length=10, blank = false)
     email     = models.EmailField(max_length=40, blank=True)
 
     def __str__(self):
         return str(self.full_name)
 
-
 class Profile(models.Model):
     id          = models.CharField(editable=False, primary_key=True, max_length=35)
     full_name   = models.CharField(max_length=30, blank=True)
     description = models.TextField(max_length=300, blank=True)
-    birthday    = models.DataField(blank=True, null=True)
+    birthday    = models.DateField(blank=True, null=True)
     gender      = models.CharField(max_length=6, choices=Gender, default="")
     phone       = models.CharField(max_length=15, blank=False)
     email       = models.EmailField(max_length=40, blank=True)
@@ -64,7 +63,7 @@ class Book(models.Model):
     isbn        = models.CharField(max_length=30)
     title       = models.CharField(max_length=30, blank=True)
     language    = models.CharField(max_length=80, null=True, choices=languages, default="")
-    published   = models.DataField(blank=True, null=True)
+    published   = models.DateField(blank=True, null=True)
     category    = models.CharField(max_length=60, blank=True )
     available   = models.BooleanField(default=False)
     quantity    = models.IntegerField(max=20, min=0)
